@@ -9,14 +9,13 @@ import {
 function InvoiceTable() {
   const [invoices, setInvoices] = useState([]);
   const [selectedInvoice, setSelectedInvoice] = useState(null); // Mã hóa đơn được chọn
-  const [invoiceDetails, setInvoiceDetails] = useState([]); // Chi tiết hóa đơn của hóa đơn được chọn
-  const [selectedInvoiceData, setSelectedInvoiceData] = useState(null); // Thông tin hóa đơn được chọn
+  const [invoiceDetails, setInvoiceDetails] = useState([]); // Chi tiết hóa đơn
+  const [selectedInvoiceData, setSelectedInvoiceData] = useState(null); // Thông tin hóa đơn
 
-  // Lấy danh sách hóa đơn khi component được mount
   useEffect(() => {
     async function fetchInvoices() {
       try {
-        const data = await getInvoices(); // Gọi API để lấy danh sách hóa đơn
+        const data = await getInvoices();
         setInvoices(data);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách hóa đơn:", error);
@@ -26,20 +25,18 @@ function InvoiceTable() {
     fetchInvoices();
   }, []);
 
-  // Lấy chi tiết hóa đơn
   const handleViewDetails = async (invoice) => {
     try {
-      const details = await getInvoiceDetails(invoice.MA_HD); // Gọi API để lấy chi tiết hóa đơn
-      setInvoiceDetails(details); // Lưu chi tiết hóa đơn vào state
-      setSelectedInvoice(invoice.MA_HD); // Lưu mã hóa đơn đã chọn vào state
-      setSelectedInvoiceData(invoice); // Lưu thông tin hóa đơn đã chọn
+      const details = await getInvoiceDetails(invoice.MA_HD);
+      setInvoiceDetails(details);
+      setSelectedInvoice(invoice.MA_HD);
+      setSelectedInvoiceData(invoice);
     } catch (error) {
       console.error("Lỗi khi lấy chi tiết hóa đơn:", error);
       alert("Không thể lấy chi tiết hóa đơn!");
     }
   };
 
-  // Cập nhật trạng thái thanh toán và số lượng sản phẩm
   const handlePaymentStatusChange = async () => {
     if (selectedInvoiceData?.DATHANHTOAN) {
       alert("Hóa đơn đã thanh toán không thể thay đổi!");
@@ -47,13 +44,9 @@ function InvoiceTable() {
     }
 
     try {
-      // Cập nhật trạng thái thanh toán
       await updateInvoiceStatus(selectedInvoiceData.MA_HD, true);
-
-      // Cập nhật số lượng sản phẩm
       await updateStockAfterPayment(selectedInvoiceData.MA_HD);
 
-      // Cập nhật giao diện
       setInvoices((prev) =>
         prev.map((inv) =>
           inv.MA_HD === selectedInvoiceData.MA_HD
@@ -80,6 +73,7 @@ function InvoiceTable() {
             <th>Nhân Viên</th>
             <th>Ngày Lập</th>
             <th>Đã Thanh Toán</th>
+            <th>Tổng Tiền</th>
             <th>Thao Tác</th>
           </tr>
         </thead>
@@ -92,6 +86,12 @@ function InvoiceTable() {
               <td>{invoice.NGAYLAPHOADON}</td>
               <td>{invoice.DATHANHTOAN ? "Có" : "Không"}</td>
               <td>
+                {invoice.TONGTIEN.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })}
+              </td>
+              <td>
                 <button onClick={() => handleViewDetails(invoice)}>
                   Xem Chi Tiết
                 </button>
@@ -101,7 +101,6 @@ function InvoiceTable() {
         </tbody>
       </table>
 
-      {/* Hiển thị chi tiết hóa đơn */}
       {selectedInvoice && (
         <div>
           <h3>Chi Tiết Hóa Đơn: {selectedInvoice}</h3>
@@ -119,12 +118,20 @@ function InvoiceTable() {
                 <tr key={index}>
                   <td>{detail.TENHANG}</td>
                   <td>{detail.SOLUONGBAN}</td>
-                  <td>{detail.GIAMGIA}</td>
-                  <td>{detail.THANHTIEN}</td>
+                  <td>{detail.GIAMGIA}%</td>
+                  <td>{detail.THANHTIEN.toLocaleString("vi-VN")} VND</td>
                 </tr>
               ))}
             </tbody>
           </table>
+
+          <h4>
+            Tổng Tiền:{" "}
+            {selectedInvoiceData?.TONGTIEN.toLocaleString("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            })}
+          </h4>
 
           <button
             onClick={handlePaymentStatusChange}
