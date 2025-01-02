@@ -6,6 +6,14 @@ function Layout() {
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
+  // Lấy vai trò người dùng từ localStorage
+  const getUserRole = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user?.role || "guest"; // Trả về "guest" nếu không tìm thấy vai trò
+  };
+
+  const userRole = getUserRole();
+
   // Lấy thông tin người dùng từ localStorage
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -46,9 +54,12 @@ function Layout() {
             <li>
               <NavLink to="/customer">Khách Hàng</NavLink>
             </li>
-            <li>
-              <NavLink to="/employees">Nhân Viên</NavLink>
-            </li>
+            {/* Ẩn mục Nhân Viên nếu không phải Quản lý */}
+            {userRole === "Quản lý" && (
+              <li>
+                <NavLink to="/employees">Nhân Viên</NavLink>
+              </li>
+            )}
             <li>
               <NavLink to="/receipt">Lập Phiếu Nhập</NavLink>
             </li>

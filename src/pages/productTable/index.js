@@ -26,6 +26,14 @@ function ProductTable() {
   const [editedProduct, setEditedProduct] = useState({});
   const [nonExistentProducts, setNonExistentProducts] = useState([]);
 
+  // Lấy vai trò người dùng từ localStorage
+  const getUserRole = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user?.role || "guest";
+  };
+
+  const userRole = getUserRole();
+
   useEffect(() => {
     fetchProducts();
     fetchCategories();
@@ -146,7 +154,9 @@ function ProductTable() {
     <div>
       <h3>Danh Sách Sản Phẩm</h3>
       <div>
-        <button onClick={handleAddClick}>Thêm Sản Phẩm</button>
+        {userRole === "Quản lý" && (
+          <button onClick={handleAddClick}>Thêm Sản Phẩm</button>
+        )}
         <input
           type="text"
           placeholder="Tìm kiếm sản phẩm..."
@@ -185,11 +195,11 @@ function ProductTable() {
             <th>Số Lượng</th>
             <th>Danh Mục</th>
             <th>Đơn Giá</th>
-            <th>Thao Tác</th>
+            {userRole === "Quản lý" && <th>Thao Tác</th>}
           </tr>
         </thead>
         <tbody>
-          {isAdding && (
+          {isAdding && userRole === "Quản lý" && (
             <tr>
               <td>
                 <input
@@ -351,12 +361,16 @@ function ProductTable() {
                 <td>{product.SOLUONGHIENCO}</td>
                 <td>{product.DANHMUCHANG}</td>
                 <td>{product.DONGIA}</td>
-                <td>
-                  <button onClick={() => handleEditClick(product)}>Sửa</button>
-                  <button onClick={() => handleDeleteClick(product.MAVACH)}>
-                    Xóa
-                  </button>
-                </td>
+                {userRole === "Quản lý" && (
+                  <td>
+                    <button onClick={() => handleEditClick(product)}>
+                      Sửa
+                    </button>
+                    <button onClick={() => handleDeleteClick(product.MAVACH)}>
+                      Xóa
+                    </button>
+                  </td>
+                )}
               </tr>
             )
           )}
