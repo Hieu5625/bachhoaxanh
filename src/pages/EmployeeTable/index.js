@@ -24,11 +24,30 @@ function EmployeeTable() {
   const [editedEmployee, setEditedEmployee] = useState({});
   const [passwordVisibility, setPasswordVisibility] = useState({});
 
+  // Hàm định dạng ngày từ "YYYY-MM-DD" thành "DD-MM-YYYY"
+  const formatDateToDisplay = (date) => {
+    if (!date) return "";
+    const [year, month, day] = date.split("-");
+    return `${day}-${month}-${year}`;
+  };
+
+  // Hàm định dạng ngày từ "DD-MM-YYYY" thành "YYYY-MM-DD"
+  const formatDateToInput = (date) => {
+    if (!date) return "";
+    const [day, month, year] = date.split("-");
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
     async function fetchEmployees() {
       try {
         const data = await getEmployees();
-        setEmployees(data);
+        setEmployees(
+          data.map((employee) => ({
+            ...employee,
+            NGAYSINH: formatDateToDisplay(employee.NGAYSINH), // Định dạng ngày sinh để hiển thị
+          }))
+        );
 
         const visibilityState = data.reduce((acc, emp) => {
           acc[emp.MA_NV] = false;
@@ -104,7 +123,7 @@ function EmployeeTable() {
     setEditingEmployeeId(employee.MA_NV);
     setEditedEmployee({
       ...employee,
-      NGAYSINH: employee.NGAYSINH || "", // Đảm bảo ngày sinh được đặt chính xác
+      NGAYSINH: formatDateToInput(employee.NGAYSINH), // Định dạng lại để phù hợp với input date
     });
     setIsAdding(false);
   };
@@ -114,7 +133,12 @@ function EmployeeTable() {
       await updateEmployee(editingEmployeeId, editedEmployee);
       setEmployees(
         employees.map((employee) =>
-          employee.MA_NV === editingEmployeeId ? editedEmployee : employee
+          employee.MA_NV === editingEmployeeId
+            ? {
+                ...editedEmployee,
+                NGAYSINH: formatDateToDisplay(editedEmployee.NGAYSINH), // Cập nhật ngày sau khi lưu
+              }
+            : employee
         )
       );
       setEditingEmployeeId(null);

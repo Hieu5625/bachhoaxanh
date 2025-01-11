@@ -1,0 +1,49 @@
+h2, h3 {
+    text-align: center;
+    color: #2c3e50;
+    font-family: Arial, sans-serif;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+form input, form select, form button {
+    display: block;
+    width: calc(100% - 20px); /* Đảm bảo chiều rộng phù hợp */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng chiều rộng */
+}
+
+form input, form select {
+    background: #fff;
+}
+
+form button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+form button:hover {
+    background: #2980b9;
+}

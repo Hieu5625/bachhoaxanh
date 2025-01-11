@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./Receipt.css";
 import { getEmployees } from "../../services/EmployeeService";
 import { getProducts } from "../../services/ProductService";
 import {

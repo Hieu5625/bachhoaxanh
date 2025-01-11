@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./productTable.css";
 import {
   getProducts,
   addProduct,

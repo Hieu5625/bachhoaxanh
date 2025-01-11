@@ -5,7 +5,7 @@ import {
   updateInvoiceStatus,
   updateStockAfterPayment,
 } from "../../services/InvoiceService";
-
+import "./InvoiceTable.css";
 function InvoiceTable() {
   const [invoices, setInvoices] = useState([]);
   const [selectedInvoice, setSelectedInvoice] = useState(null); // Mã hóa đơn được chọn

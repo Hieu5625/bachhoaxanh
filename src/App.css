@@ -1,0 +1,255 @@
+/* Bố cục chung */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto; /* Cho phép cuộn trang */
+}
+
+/* Header */
+.container header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4caf50;
+    color: white;
+    padding: 1rem 2rem; /* Thêm padding trái phải cho header */
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10; /* Đảm bảo header nằm trên các phần tử khác */
+    transition: top 0.3s; /* Thêm hiệu ứng khi ẩn header */
+    box-sizing: border-box; /* Đảm bảo rằng padding không làm header vượt quá chiều rộng */
+}
+
+/* Header title */
+.container header h1 {
+    padding: 10px;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* Thông tin người dùng */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative; /* Thay absolute thành relative */
+    z-index: 12; /* Đảm bảo user-info luôn trên các phần tử khác */
+}
+
+.user-info span {
+    color: white;
+}
+
+.user-info span a {
+    color: white;
+}
+
+/* Nút đăng xuất */
+.logout-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px; /* Padding cho nút đăng xuất */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    position: relative; /* Đảm bảo nút nằm trong phạm vi header */
+    top: 0;
+    right: 20px;
+    z-index: 11; /* Đảm bảo nút đăng xuất nằm trên các phần tử khác */
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+}
+
+.logout-button:active {
+    transform: translateY(1px);
+}
+
+/* Sidebar */
+.container .main-container {
+    display: flex;
+    flex: 1;
+    margin-top: 60px; /* Khoảng cách để tránh che header */
+}
+
+.container .sidebar {
+    width: 220px; /* Giảm width của sidebar */
+    background-color: #343a40;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Cố định sidebar */
+    top: 60px; /* Khoảng cách dưới header */
+    bottom: 0;
+    z-index: 5;
+    overflow-y: auto;
+    margin-right: 20px; /* Thêm khoảng cách bên phải sidebar */
+}
+
+.container .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.container .sidebar li {
+    margin: 12px 0; /* Khoảng cách giữa các mục trong sidebar */
+}
+
+.container .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    padding: 12px 0px; /* Thêm padding để tạo không gian */
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+.container .sidebar ul li a:hover {
+    background-color: #4caf50;
+}
+
+.container .sidebar .active {
+    font-weight: bold;
+    background-color: #8edd90;
+    color: black;
+}
+
+/* Nội dung */
+.container .content {
+    flex: 1;
+    margin-left: 240px; /* Khoảng cách để nội dung không bị che khuất bởi sidebar */
+    margin-right: 20px; /* Khoảng cách phải để tạo không gian cho table */
+    padding: 20px; /* Thêm padding cho phần nội dung */
+    background-color: #fff;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    margin-bottom: 20px; /* Thêm khoảng cách dưới bảng */
+    margin-left: 20px; /* Thêm margin-left để tạo khoảng cách từ bên trái */
+}
+
+th,
+td {
+    padding: 12px 15px; /* Cập nhật padding cho th và td */
+    border: 1px solid #ced4da;
+    text-align: center;
+}
+
+th {
+    background-color: #4caf50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #eafaf1;
+}
+
+table input {
+    text-align: center;
+    padding: 8px; /* Cập nhật padding cho input trong table */
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+}
+
+/* Nút thêm sản phẩm, khách hàng */
+.add-product-button,
+.add-Customer-button {
+    padding: 10px 20px; /* Cập nhật padding cho các button */
+    margin: 10px 0 10px 20px; /* Khoảng cách giữa các nút và từ sidebar */
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.add-product-button:hover,
+.add-Customer-button:hover {
+    background-color: darkgreen;
+    transform: translateY(-2px);
+}
+
+.add-product-button:active,
+.add-Customer-button:active {
+    transform: translateY(1px);
+}
+
+/* Nút lưu và hủy */
+.save-button,
+.cancel-button {
+    padding: 8px 16px; /* Cập nhật padding */
+    margin: 10px 0 10px 20px; /* Khoảng cách giữa các nút và từ sidebar */
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.save-button:hover,
+.cancel-button:hover {
+    background-color: darkgreen;
+    transform: translateY(-2px);
+}
+
+.save-button:active,
+.cancel-button:active {
+    transform: translateY(1px);
+}
+
+/* Nút chung */
+button {
+    padding: 10px 16px; /* Cập nhật padding */
+    margin: 10px 0 10px 20px; /* Khoảng cách giữa các nút và từ sidebar */
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: darkgreen;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Input tìm kiếm */
+input {
+    padding: 8px 12px; /* Cập nhật padding */
+    margin: 20px ; /* Khoảng cách giữa các input */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

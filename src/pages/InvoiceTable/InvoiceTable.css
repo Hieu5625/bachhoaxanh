@@ -1,0 +1,97 @@
+/* Container tổng */
+.InvoiceContainer {
+  width: 100%;
+  max-width: 800px; /* Chiều rộng tối đa */
+  margin: 0 auto; /* Canh giữa */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ */
+}
+
+/* Tiêu đề phần lớn */
+.InvoiceSectionTitle {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Tiêu đề bảng hóa đơn */
+.InvoiceTableTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  margin: 20px 0!important; /* Khoảng cách cả trên và dưới */
+  text-align: left;
+  display: block; /* Đảm bảo nó là một khối riêng biệt */
+}
+
+
+/* Bảng hóa đơn */
+.InvoiceTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px; /* Khoảng cách dưới bảng */
+  font-size: 14px;
+  color: #333;
+}
+
+.InvoiceTable th,
+.InvoiceTable td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.InvoiceTable th {
+  background-color: #007bff;
+  color: white;
+}
+
+.InvoiceTable tr:nth-child(odd) {
+  background-color: #f9f9f9; /* Hàng màu nhạt */
+}
+
+.InvoiceTable tr:nth-child(even) {
+  background-color: #ffffff; /* Hàng màu trắng */
+}
+
+/* Tổng tiền */
+.TotalAmount {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px; /* Khoảng cách trên Tổng Tiền */
+  color: #333;
+}
+
+/* Nút bấm thanh toán */
+.PaymentButton {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px; /* Khoảng cách trên nút */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.PaymentButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Hiệu ứng hover */
+}
+
+.PaymentButton:active {
+  background-color: #004494;
+  transform: translateY(0); /* Reset khi nhấn */
+}
+
+.PaymentButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
